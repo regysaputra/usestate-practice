@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaLightbulb, FaRegLightbulb } from 'react-icons/fa';
 
 /**
@@ -7,33 +7,50 @@ import { FaLightbulb, FaRegLightbulb } from 'react-icons/fa';
  * dengan memanfaatkan useState().
  */
 
-class ToggleLamp extends React.Component {
-  constructor(props) {
-    super(props);
+// class ToggleLamp extends React.Component {
+//     constructor(props) {
+//         super(props);
 
-    this.state = {
-      lamp: 'off'
-    };
+//         this.state = {
+//             lamp: 'off'
+//         };
 
-    this.toggleLamp = this.toggleLamp.bind(this);
-  }
+//         this.toggleLamp = this.toggleLamp.bind(this);
+//     }
 
-  toggleLamp() {
-    this.setState((prevState) => {
-      return {
-        lamp: prevState.lamp === 'off' ? 'on' : 'off'
-      };
-    });
-  }
+//     toggleLamp() {
+//         this.setState((prevState) => {
+//             return {
+//                 lamp: prevState.lamp === 'off' ? 'on' : 'off'
+//             };
+//         });
+//     }
 
-  render() {
+//     render() {
+//         return (
+//             <div className={this.state.lamp}>
+//                 <button onClick={this.toggleLamp}>
+//                     {this.state.lamp === 'on' ? <FaLightbulb /> : <FaRegLightbulb />}
+//                 </button>
+//                 <h3>Hooks keren!</h3>
+//             </div>
+//         );
+//     }
+// }
+
+function ToggleLamp() {
+	const [ lamp, setLamp ] = useState('off');
+
+	const toggleLamp = () => setLamp((prevState) => prevState === 'off' ? 'on' : 'off');
+
     return (
-      <div className={this.state.lamp}>
-        <button onClick={this.toggleLamp}>{this.state.lamp === 'on' ? <FaLightbulb /> : <FaRegLightbulb />}</button>
-        <h3>Hooks keren!</h3>
-      </div>
+        <div className={lamp}>
+            <button onClick={toggleLamp}>
+                {lamp === 'on' ? <FaLightbulb /> : <FaRegLightbulb />}
+            </button>
+            <h3>Hooks keren!</h3>
+        </div>
     );
-  }
 }
 
 export default ToggleLamp;

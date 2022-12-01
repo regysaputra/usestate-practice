@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /**
  * @todo
@@ -9,11 +9,43 @@ import React from 'react';
  */
 
 function Todo() {
-  return (
-    <div>
-      <p>Lihat instruksi pada komponen ini</p>
-    </div>
-  );
+	const [todos, setTodos] = useState([]);
+	const [input, setInput] = useState('');
+
+	const addTodoHandler = () => {
+		setTodos((prevTodos) => {
+			return [...prevTodos, { id: +new Date(), name: input }];
+		});
+
+		setInput('');
+	}
+
+	const removeTodoHandler = (id) => {
+		setTodos((prevTodos) => {
+			return prevTodos.filter((todo) => todo.id !== id);
+		});
+	};
+
+	const inputChangeHandler = (event) => {
+		setInput(event.target.value);
+	};
+
+    return (
+        <div>
+            <div>
+                <input value={input} onChange={inputChangeHandler} />
+                <button onClick={addTodoHandler}>Add to-do</button>
+            </div>
+            <ul>
+                {todos.map((todo) => (
+                    <li key={todo.id}>
+                        {todo.name}
+                        <button onClick={() => removeTodoHandler(todo.id)}>X</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default Todo;
